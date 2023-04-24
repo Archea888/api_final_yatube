@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-
+1
 User = get_user_model()
 
 
@@ -48,8 +48,9 @@ class Follow(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(
-                fields=['user', 'following'],
-                name='uniq_followers'
-            )
+            models.UniqueConstraint(fields=['user', 'following'],
+                                    name='unique_user_subscribers')
         ]
+
+    def __str__(self):
+        return '{} follows {}'.format(self.user, self.following)
