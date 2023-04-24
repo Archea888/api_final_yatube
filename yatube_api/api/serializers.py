@@ -55,5 +55,5 @@ class FollowSerializer(serializers.ModelSerializer):
 class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
-        fields = ('id', 'title')
         model = Group
+        fields = '__all__'
