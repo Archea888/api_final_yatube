@@ -1,11 +1,11 @@
-from posts.models import Comment, Follow, Group, Post, User
 from rest_framework import serializers
 from rest_framework.serializers import CurrentUserDefault
 
+from posts.models import Comment, Follow, Group, Post, User
+
 
 class PostSerializer(serializers.ModelSerializer):
-    '''Серилизатор постов. '''
-
+    """Серилизатор постов. """
     author = serializers.SlugRelatedField(
         slug_field='username',
         read_only=True,
@@ -13,15 +13,12 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = (
-            'id', 'text', 'author', 'image', 'group', 'pub_date', 'comments'
-        )
+        fields = ('__all__')
         read_only_fields = ('comments',)
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    '''Серилизатор комментариев. '''
-
+    """Серилизатор комментариев. """
     author = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username',
@@ -29,24 +26,24 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'text', 'author', 'created', 'post')
+        fields = ('__all__')
         read_only_fields = ('post',)
 
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ('id', 'title', 'slug', 'description')
+        fields = ('__all__')
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'password')
+        fields = ('__all__')
 
 
 class FollowSerializer(serializers.ModelSerializer):
-    '''Серилизатор подписок. '''
+    """Серилизатор подписок. """
     user = serializers.SlugRelatedField(
         slug_field='username',
         read_only=True,
@@ -60,7 +57,7 @@ class FollowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Follow
-        fields = ('id', 'user', 'following')
+        fields = ('__all__')
         validators = (
             serializers.UniqueTogetherValidator(
                 queryset=Follow.objects.all(),
